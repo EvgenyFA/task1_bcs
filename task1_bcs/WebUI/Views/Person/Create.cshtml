@@ -1,0 +1,58 @@
+﻿@model WebUI.Models.PersonModel
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Добавить контакт</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/Styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="panel panel-success">
+        <div class="panel-body">
+            @using (Ajax.BeginForm("Create", new AjaxOptions()))
+            {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                    <div class="form-group">
+                        @Html.Label("FullName", "ФИО:")
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Phone", "Телефон:")
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("Email", "Эл. почта:")
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.Label("City", "Город:")
+                        @Html.DropDownListFor(model => model.CityId, new SelectList(ViewBag.CitySelection, "CityId", "Name"), "Выберите город", new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Добавить" class="btn btn-default" />
+                    </div>
+            }
+            <div class="form-group">
+                @Html.ActionLink("Вернуться к списку", "Index")
+            </div>
+        </div>
+    </div>
+</body>
+</html>
